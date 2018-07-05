@@ -1,0 +1,15 @@
+{
+  "name": "fake-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel example/index.html",
+    "preact": "parcel example/preact/index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.9.4",
+    "preact": "^8.2.9",
+    "typescript": "^2.9.2"
+  }
+}
