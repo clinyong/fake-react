@@ -1,8 +1,12 @@
 import * as React from "../src";
 
 class App extends React.Component {
+  onClick = () => {
+    alert("haha");
+  };
+
   render() {
-    return <div>Hello World</div>;
+    return <div onClick={this.onClick}>Hello World</div>;
   }
 }
 

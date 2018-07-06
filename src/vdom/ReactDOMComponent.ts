@@ -61,7 +61,21 @@ export class ReactDOMComponent implements ComponentInstance {
 
   mountComponent() {
     const el = document.createElement(this.tag);
-    this.createInitialChildren(this.currentElement.props, el);
+    const props = this.currentElement.props;
+
+    this.createInitialChildren(props, el);
+
+    const obj = Object.assign({}, props);
+    delete obj.children;
+
+    // add event
+    Object.keys(obj).forEach(p => {
+      if (p.startsWith("on")) {
+        const evtName = p.replace("on", "").toLowerCase();
+        el.addEventListener(evtName, obj[p]);
+      }
+    });
+
     return el;
   }
 }
