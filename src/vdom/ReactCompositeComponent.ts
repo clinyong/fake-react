@@ -5,33 +5,27 @@ import { ComponentInstance } from "./ComponentInstance";
 
 export class ReactCompositeComponent implements ComponentInstance {
   private currentElement: ReactElement;
+  private instance: ReactComponent;
+  private renderedChildren: ComponentInstance;
 
   constructor(element: ReactElement) {
     this.currentElement = element;
+
+    // construct self
+    this.instance = this.constructSelf(element.props);
+
+    // construct children
+    this.renderedChildren = instantiateReactComponent(
+      this.instance.render() as any
+    );
   }
 
-  private constructComponent(publicProps: ReactElementAttr) {
+  private constructSelf(publicProps: ReactElementAttr) {
     let Component = this.currentElement.type as any;
-
-    if (Component.isReactElement) {
-      const inst: ReactComponent = new Component(publicProps);
-      return inst.render();
-    } else {
-      // StatelessComponent
-      return Component(publicProps);
-    }
-  }
-
-  private performInitialMount(renderedElement: ReactElement) {
-    const child = instantiateReactComponent(renderedElement);
-    return child.mountComponent();
+    return new Component(publicProps);
   }
 
   mountComponent() {
-    const publicProps = this.currentElement.props;
-    let renderedElement = this.constructComponent(publicProps);
-
-    const markup = this.performInitialMount(renderedElement);
-    return markup;
+    return this.renderedChildren.mountComponent();
   }
 }
