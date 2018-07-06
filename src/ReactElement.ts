@@ -3,22 +3,22 @@ import { ReactComponent } from "./ReactComponent";
 interface Obj {
   [index: string]: any;
 }
-export type ReactElementType = string | number | ReactComponent;
-export type ReactChildType = ReactElement | string;
+export type ReactComponentType = string | number | ReactComponent;
+export type ReactElementType = ReactElement | string | false;
 export interface ReactElementAttr extends Obj {
-  children?: ReactChildType;
+  children?: ReactElementType;
   key?: string;
 }
 
 export interface ReactElementProps {
   key?: string;
-  type: ReactElementType;
+  type: ReactComponentType;
   props: ReactElementAttr;
 }
 
 export class ReactElement implements ReactElementProps {
   key?: string;
-  type: ReactElementType;
+  type: ReactComponentType;
   props: ReactElementAttr;
 
   constructor(props: ReactElementProps) {

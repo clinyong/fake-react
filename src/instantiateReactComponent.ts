@@ -2,6 +2,7 @@ import { ReactElement } from "./ReactElement";
 import { ReactCompositeComponent } from "./vdom/ReactCompositeComponent";
 import { ReactDOMComponent } from "./vdom/ReactDOMComponent";
 import { ComponentInstance } from "./vdom/ComponentInstance";
+import { ReactComponent } from "./ReactComponent";
 
 export function instantiateReactComponent(
   node: ReactElement

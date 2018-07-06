@@ -1,14 +1,14 @@
 import {
   ReactElement,
   ReactElementAttr,
-  ReactElementType,
-  ReactChildType
+  ReactComponentType,
+  ReactElementType
 } from "./ReactElement";
 
 export function createElement(
-  type: ReactElementType,
+  type: ReactComponentType,
   config: ReactElementAttr | null,
-  ...children: ReactChildType[]
+  ...children: ReactElementType[]
 ): ReactElement {
   const props: ReactElementAttr = {};
   let key: string = "";
@@ -26,6 +26,10 @@ export function createElement(
 
   // 暂时只接受第一个子元素
   props.children = children[0];
+
+  if (typeof props.children === "number") {
+    props.children = props.children!.toString();
+  }
 
   return new ReactElement({
     key,
